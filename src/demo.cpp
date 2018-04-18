@@ -48,6 +48,7 @@ void GmsMatch(Mat &img1, Mat &img2){
 	orb->detectAndCompute(img2, Mat(), kp2, d2);
 
 #ifdef USE_GPU
+    std::cout << "Using GPU for matching." << std::endl;
 	GpuMat gd1(d1), gd2(d2);
 	Ptr<cuda::DescriptorMatcher> matcher = cv::cuda::DescriptorMatcher::createBFMatcher(NORM_HAMMING);
 	matcher->match(gd1, gd2, matches_all);
