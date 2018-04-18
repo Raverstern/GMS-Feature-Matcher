@@ -5,6 +5,7 @@
 #include "Header.h"
 #include "gms_matcher.h"
 
+// implementation of alg.1 in the paper
 void GmsMatch(Mat &img1, Mat &img2);
 
 void runImagePair(){
@@ -44,9 +45,11 @@ void GmsMatch(Mat &img1, Mat &img2){
 		orb->setFastThreshold(5);
 	}
 	
+    // 1. Detect feature points and calculate their descriptors
 	orb->detectAndCompute(img1, Mat(), kp1, d1);
 	orb->detectAndCompute(img2, Mat(), kp2, d2);
 
+    // 2. Find nearest neighbour between features in two images
 #ifdef USE_GPU
     std::cout << "Using GPU for matching." << std::endl;
 	GpuMat gd1(d1), gd2(d2);
@@ -60,8 +63,10 @@ void GmsMatch(Mat &img1, Mat &img2){
 	// GMS filter
 	int num_inliers = 0;
 	std::vector<bool> vbInliers;
+    // 3. Divide images by G grids respectively
 	gms_matcher gms(kp1,img1.size(), kp2,img2.size(), matches_all);
-	num_inliers = gms.GetInlierMask(vbInliers, false, false);
+    // From line 4.
+    num_inliers = gms.GetInlierMask(vbInliers, false, false);
 
 	cout << "Get total " << num_inliers << " matches." << endl;
 

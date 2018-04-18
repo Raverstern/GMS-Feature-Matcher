@@ -206,11 +206,11 @@ private:
 		return NB9;
 	}
 
-	//
+    // store the neighbouring 9 indices of each index
 	void InitalizeNiehbors(Mat &neighbor, const Size& GridSize) {
 		for (int i = 0; i < neighbor.rows; i++)
 		{
-			vector<int> NB9 = GetNB9(i, GridSize);
+			vector<int> NB9 = GetNB9(i, GridSize); // find the neighbouring indices around index i
 			int *data = neighbor.ptr<int>(i);
 			memcpy(data, &NB9[0], sizeof(int) * 9);
 		}
@@ -330,7 +330,7 @@ void gms_matcher::AssignMatchPairs(int GridType) {
 
 }
 
-
+// Implementation of the main body of the algorithm
 void gms_matcher::VerifyCellPairs(int RotationType) {
 
 	const int *CurrentRP = mRotationPatterns[RotationType - 1];
@@ -398,6 +398,7 @@ int gms_matcher::run(int RotationType) {
 		mNumberPointsInPerCellLeft.assign(mGridNumberLeft, 0);
 		
 		AssignMatchPairs(GridType);
+		// main body
 		VerifyCellPairs(RotationType);
 
 		// Mark inliers
