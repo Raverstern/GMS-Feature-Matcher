@@ -79,7 +79,7 @@ void GmsMatch(Mat &img1, Mat &img2){
 		}
 	}
 
-	Mat show = DrawInlier(img1, img2, kp1, kp2, matches_gms, 1);
+	Mat show = DrawInlier(img1, img2, kp1, kp2, matches_gms, 2);
 	imshow("show", show);
 	waitKey();
 }

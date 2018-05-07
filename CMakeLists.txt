@@ -13,4 +13,4 @@ ${OpenCV_INCLUDE_DIRS}
 
 add_executable( gms_match_demo ./src/demo.cpp )
 target_link_libraries( gms_match_demo ${OpenCV_LIBS} )
-add_definitions(-DUSE_GPU)
+# add_definitions(-DUSE_GPU)
